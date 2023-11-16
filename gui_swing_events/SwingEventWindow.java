@@ -1,13 +1,22 @@
 package gui_swing_events;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SwingEventWindow {
 
-    public void createWindow(){
+public class SwingEventWindow extends JFrame implements ActionListener{
+
+    private  JRadioButton rdbtn1;
+    private JRadioButton rdbtn2;
+    private JRadioButton rdbtn3;
+    private JRadioButton rdbtn4;
+    private  JButton btn1;
+    private JTextField txt1;
+    private JTextField txt2;
+    public void createWindow() {
         JFrame frame = new JFrame();
-        frame.setSize(1080, 720);
+        frame.setSize(490, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
@@ -24,18 +33,19 @@ public class SwingEventWindow {
         JLabel label1 = new JLabel("Excel functions");
         JLabel label2 = new JLabel("Enter your number separate by spaces");
         panel1.add(label1);
-        panel1.add(label2);
+        panel2.add(label2);
+
 
         // Create text field (panel2)
 
-        JTextField txt1 = new JTextField(30);
+        txt1 = new JTextField(18);
         panel2.add(txt1);
 
         // Create radio buttons (panel3)
-        JRadioButton rdbtn1 = new JRadioButton("Auto Sum", true);
-        JRadioButton rdbtn2 = new JRadioButton("Average");
-        JRadioButton rdbtn3 = new JRadioButton("Maximum");
-        JRadioButton rdbtn4 = new JRadioButton("Minimum");
+        rdbtn1 = new JRadioButton("Auto Sum", true);
+        rdbtn2 = new JRadioButton("Average");
+        rdbtn3 = new JRadioButton("Maximum");
+        rdbtn4 = new JRadioButton("Minimum");
 
         ButtonGroup calculGroup = new ButtonGroup();
         calculGroup.add(rdbtn1);
@@ -49,15 +59,15 @@ public class SwingEventWindow {
         panel3.add(rdbtn4);
 
         // Create button (panel4)
-        JButton btn1 = new JButton("Calculate");
+        btn1 = new JButton("Calculate");
         panel4.add(btn1);
 
         // Create Textfield (panel 5)
 
         JLabel label3 = new JLabel("Results :");
-        JTextField txt2 = new JTextField(30);
-        panel5.add(txt2);
+        txt2 = new JTextField(30);
         panel5.add(label3);
+        panel5.add(txt2);
 
         // add panel to mainPanel
 
@@ -68,7 +78,40 @@ public class SwingEventWindow {
         mainPanel.add(panel5);
 
         frame.getContentPane().add(mainPanel);
+
+        // Add listener
+        rdbtn1.addActionListener(this);
+        rdbtn2.addActionListener(this);
+        rdbtn3.addActionListener(this);
+        rdbtn4.addActionListener(this);
+        txt1.addActionListener(this);
+        btn1.addActionListener(this);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            Object source = e.getSource();
+            if (source == btn1) {
+                String output_text = txt1.getText();
+
+                    Excel e1 = new Excel(output_text);
+
+                    if (rdbtn1.isSelected()) {
+                        txt2.setText(String.valueOf(e1.findTotal()));
+                    } else if (rdbtn2.isSelected()) {
+                        txt2.setText(String.valueOf(e1.findAvg()));
+                    } else if (rdbtn3.isSelected()) {
+                        txt2.setText(String.valueOf(e1.findMax()));
+                    } else if (rdbtn4.isSelected()) {
+                        txt2.setText(String.valueOf(e1.findMin()));
+                    }
+                }
+        }catch (Exception exp) {
+            txt2.setText("Please enter a valid set of number !!");
+            System.err.println("Catch error: " + exp.getMessage() + " / " + exp.getClass());
+        }
+
+    }
 
 }

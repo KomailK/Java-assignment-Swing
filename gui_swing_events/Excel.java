@@ -20,19 +20,9 @@ public class Excel {
         List<String> strNumArrayList = new ArrayList<>(strNumList);
 
         strNumArrayList.forEach(strNum -> {
-            try {
                 double item = Double.parseDouble(strNum);
                 field.add(item);
-            } catch (NumberFormatException e) {
-                System.err.println("Erreur de conversion pour : " + strNum);
-            }
         });
-
-        // test
-        /*for (int i = 0; i < field.size(); i++) {
-            System.out.println(field.get(i));
-        }*/
-
     }
 
    public double findTotal() {
@@ -46,7 +36,12 @@ public class Excel {
     public double findAvg() {
         double avg = 0;
         avg = findTotal() / field.size();
-        return avg;
+
+        if(Double.isNaN(avg)){
+            return 0.0;
+        }else{
+            return avg;
+        }
     }
 
     public double findMax() {

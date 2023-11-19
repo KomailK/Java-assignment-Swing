@@ -16,7 +16,7 @@ public class SwingEventWindow extends JFrame implements ActionListener{
     private JTextField txt2;
     public void createWindow() {
         JFrame frame = new JFrame();
-        frame.setSize(490, 300);
+        frame.setSize(435, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 

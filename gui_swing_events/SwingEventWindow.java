@@ -16,12 +16,13 @@ public class SwingEventWindow extends JFrame implements ActionListener{
     private JTextField txt2;
     public void createWindow() {
         JFrame frame = new JFrame();
-        frame.setSize(435, 300);
+        frame.setSize(490, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
         // Create Panels
         JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
